@@ -10,6 +10,30 @@
 #import "CityManager.h"
 #import "AwemeHeaders.h"
 
+//去除开屏广告
+%hook BDASplashControllerView
++ (id)alloc {
+    return nil; // 直接返回空指针，阻止内存分配
+}
+%end
+
+//拦截顶栏位置提示线
+%hook AWEFeedMultiTabSelectedContainerView
+- (void)setHidden:(BOOL)hidden {
+    %orig(YES); // 强制始终设为 YES
+}
+%end
+
+// 屏蔽关注页XX个直播
+%hook AWEConcernSkylightCapsuleView
+- (void)setHidden:(BOOL)hidden {
+    %orig(YES); // 强制始终设为 YES
+}
+- (void)setAlpha:(CGFloat)alpha {
+    %orig(0);
+}
+%end
+
 static UIWindow * getActiveWindow(void) {
     if (@available(iOS 15.0, *)) {
         for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
@@ -517,9 +541,18 @@ void downloadAllImages(NSMutableArray *imageURLs) {
 %end
 
 %hook AWEAwemeModel
+- (id)initWithDictionary:(id)arg1 error:(id *)arg2 {
+    id orig = %orig;
+    return self.isAds ? nil : orig; 
+}
+
+- (id)init {
+    id orig = %orig;
+    return self.isAds ? nil : orig;
+}
 
 - (void)live_callInitWithDictyCategoryMethod:(id)arg1 {
-    if (self.currentAweme && [self.currentAweme isLive] && [[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYisSkipLive"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYisSkipLive"]) {
         return;
     }
     %orig;
@@ -786,14 +819,6 @@ void downloadAllImages(NSMutableArray *imageURLs) {
         responder = [responder nextResponder];
     }
     return nil;
-}
-
-%end
-
-%hook AWEAwemeModel
-
-- (void)setIsAds:(BOOL)isAds {
-    %orig(NO);
 }
 
 %end
