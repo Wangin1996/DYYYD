@@ -19,11 +19,11 @@
 
 
 //去除开屏广告
-%hook BDASplashControllerView
-+ (id)alloc {
-    return nil; // 直接返回空指针，阻止内存分配
-}
-%end
+//%hook BDASplashControllerView
+//+ (id)alloc {
+//    return nil; // 直接返回空指针，阻止内存分配
+//}
+//%end
 
 //拦截顶栏位置提示线
 %hook AWEFeedMultiTabSelectedContainerView
