@@ -11,6 +11,13 @@
 #import "CityManager.h"
 #import "AwemeHeaders.h"
 
+%hook AwemeAdManager
+- (void)showAd {
+    return;
+}
+%end
+
+
 //去除开屏广告
 %hook BDASplashControllerView
 + (id)alloc {
@@ -542,15 +549,6 @@ void downloadAllImages(NSMutableArray *imageURLs) {
 %end
 
 %hook AWEAwemeModel
-- (id)initWithDictionary:(id)arg1 error:(id *)arg2 {
-    id orig = %orig;
-    return self.isAds ? nil : orig; 
-}
-
-- (id)init {
-    id orig = %orig;
-    return self.isAds ? nil : orig;
-}
 
 - (void)live_callInitWithDictyCategoryMethod:(id)arg1 {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYisSkipLive"]) {
