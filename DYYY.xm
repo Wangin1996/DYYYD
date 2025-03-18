@@ -2013,6 +2013,21 @@ static BOOL isDownloadFlied = NO;
 
 %end
 
+//发现好物
+%hook AWEFeedHotSpotInteractionViewController
+
+- (id)init {
+    BOOL disableHotSpot = [[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYNoHotSpot"];
+    return disableHotSpot ? nil : %orig; // 若禁用，返回 nil
+}
+
+- (id)initWithNibName:(id)arg1 bundle:(id)arg2 {
+    BOOL disableHotSpot = [[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYNoHotSpot"];
+    return disableHotSpot ? nil : %orig;
+}
+
+%end
+
 %ctor {
     %init(DYYYSettingsGesture);
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYUserAgreementAccepted"]) {
