@@ -7,7 +7,8 @@ typedef NS_ENUM(NSInteger, MediaType) {
     MediaTypeVideo,
     MediaTypeImage,
     MediaTypeAudio,
-    MediaTypeHeic
+    MediaTypeHeic,
+    MediaTypeLivephoto
 };
 
 @interface URLModel : NSObject
