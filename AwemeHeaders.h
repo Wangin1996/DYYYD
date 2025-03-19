@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, MediaType) {
 
 @interface AWEImageAlbumImageModel : NSObject
 @property (nonatomic, strong) NSArray *urlList;
+@property (nonatomic, strong, readwrite) AWEVideoModel *clipVideo;
 @end
 
 @interface AWEAwemeModel : NSObject
