@@ -158,7 +158,7 @@
     AVMutableMetadataItem *item = [AVMutableMetadataItem new];
     item.keySpace = AVMetadataKeySpaceQuickTimeMetadata;
     item.key = @"com.apple.quicktime.still-image-time";
-    item.value = @(-1);
+    item.value = @(0);
     item.dataType = (NSString *)kCMMetadataBaseDataType_SInt8;
     return item;
 }
