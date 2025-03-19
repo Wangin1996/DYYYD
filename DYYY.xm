@@ -1478,42 +1478,41 @@
         [viewModels addObject:audioViewModel];
         
         if (self.awemeModel.awemeType == 68 && self.awemeModel.albumImages.count > 0) {
-        AWEAwemeModel *awemeModel = self.awemeModel;
-        AWEImageAlbumImageModel *currentImageModel = [self getCurrentImageModel];
-        
-        // 实况图片
         AWELongPressPanelBaseViewModel *livephotoViewModel = [[%c(AWELongPressPanelBaseViewModel) alloc] init];
-        livephotoViewModel.awemeModel = awemeModel;
+        livephotoViewModel.awemeModel = self.awemeModel;
         livephotoViewModel.actionType = 669;
         livephotoViewModel.duxIconName = @"ic_circledown_filled_20";
         livephotoViewModel.describeString = @"保存实况图片";
+        
         livephotoViewModel.action = ^{
-            if (currentImageModel.clipVideo.h264URL.originURLList.count > 0) {
-                [DYYYManager downloadLivephoto:[NSURL URLWithString:currentImageModel.urlList.firstObject]
-                                    videoURL:[NSURL URLWithString:currentImageModel.clipVideo.h264URL.originURLList.firstObject]
-                                completion:^(BOOL success) {
-                    [DYYYManager showToast:success ? @"实况图片已保存" : @"保存失败"];
-                }];
+            AWEAwemeModel *awemeModel = self.awemeModel;
+            AWEImageAlbumImageModel *currentImageModel = nil;
+            
+            // 获取当前图片逻辑
+            if (awemeModel.currentImageIndex > 0 && awemeModel.currentImageIndex <= awemeModel.albumImages.count) {
+                currentImageModel = awemeModel.albumImages[awemeModel.currentImageIndex - 1];
+            } else {
+                currentImageModel = awemeModel.albumImages.firstObject;
             }
-            [self dismissPanel];
-        };
-        
-        // 普通图片
-        AWELongPressPanelBaseViewModel *imageViewModel = [[%c(AWELongPressPanelBaseViewModel) alloc] init];
-        imageViewModel.describeString = @"保存当前图片";
-        imageViewModel.action = ^{
-            if (currentImageModel.urlList.count > 0) {
-                [DYYYManager downloadMedia:[NSURL URLWithString:currentImageModel.urlList.firstObject]
-                                mediaType:MediaTypeImage
-                            completion:^{
-                    [DYYYManager showToast:@"图片已保存到相册"];
-                }];
+            
+            if (currentImageModel.clipVideo) {
+                // Live Photo 处理
+                if (currentImageModel.clipVideo && currentImageModel.clipVideo.h264URL.originURLList.count > 0) {
+                    NSURL *imageURL = [NSURL URLWithString:currentImageModel.urlList.firstObject];
+                    NSURL *videoURL = [NSURL URLWithString:currentImageModel.clipVideo.h264URL.originURLList.firstObject];
+                    [DYYYManager downloadLivephoto:imageURL 
+                     videoURL:videoURL 
+                   completion:^(BOOL success) {                        
+			if (success) {
+                            [DYYYManager showToast:@"实况图片已保存"];
+                        }
+		    }];
+                } 
             }
-            [self dismissPanel];
+
+            AWELongPressPanelManager *panelManager = [%c(AWELongPressPanelManager) shareInstance];
+            [panelManager dismissWithAnimation:YES completion:nil];
         };
-        
-        [viewModels addObjectsFromArray:@[livephotoViewModel, imageViewModel]];
-}
         
         [viewModels addObject:livephotoViewModel];
             
@@ -1545,7 +1544,7 @@
                 [viewModels addObject:allImagesViewModel];
             }
         }
-    
+    }
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYCopyText"]) {
         AWELongPressPanelBaseViewModel *copyText = [[%c(AWELongPressPanelBaseViewModel) alloc] init];
@@ -1667,42 +1666,41 @@
         [viewModels addObject:audioViewModel];
         
         if (self.awemeModel.awemeType == 68 && self.awemeModel.albumImages.count > 0) {
-        AWEAwemeModel *awemeModel = self.awemeModel;
-        AWEImageAlbumImageModel *currentImageModel = [self getCurrentImageModel];
-        
-        // 实况图片
         AWELongPressPanelBaseViewModel *livephotoViewModel = [[%c(AWELongPressPanelBaseViewModel) alloc] init];
-        livephotoViewModel.awemeModel = awemeModel;
+        livephotoViewModel.awemeModel = self.awemeModel;
         livephotoViewModel.actionType = 669;
         livephotoViewModel.duxIconName = @"ic_circledown_filled_20";
         livephotoViewModel.describeString = @"保存实况图片";
+        
         livephotoViewModel.action = ^{
-            if (currentImageModel.clipVideo.h264URL.originURLList.count > 0) {
-                [DYYYManager downloadLivephoto:[NSURL URLWithString:currentImageModel.urlList.firstObject]
-                                    videoURL:[NSURL URLWithString:currentImageModel.clipVideo.h264URL.originURLList.firstObject]
-                                completion:^(BOOL success) {
-                    [DYYYManager showToast:success ? @"实况图片已保存" : @"保存失败"];
-                }];
+            AWEAwemeModel *awemeModel = self.awemeModel;
+            AWEImageAlbumImageModel *currentImageModel = nil;
+            
+            // 获取当前图片逻辑
+            if (awemeModel.currentImageIndex > 0 && awemeModel.currentImageIndex <= awemeModel.albumImages.count) {
+                currentImageModel = awemeModel.albumImages[awemeModel.currentImageIndex - 1];
+            } else {
+                currentImageModel = awemeModel.albumImages.firstObject;
             }
-            [self dismissPanel];
-        };
-        
-        // 普通图片
-        AWELongPressPanelBaseViewModel *imageViewModel = [[%c(AWELongPressPanelBaseViewModel) alloc] init];
-        imageViewModel.describeString = @"保存当前图片";
-        imageViewModel.action = ^{
-            if (currentImageModel.urlList.count > 0) {
-                [DYYYManager downloadMedia:[NSURL URLWithString:currentImageModel.urlList.firstObject]
-                                mediaType:MediaTypeImage
-                            completion:^{
-                    [DYYYManager showToast:@"图片已保存到相册"];
-                }];
+            
+            if (currentImageModel.clipVideo) {
+                // Live Photo 处理
+                if (currentImageModel.clipVideo && currentImageModel.clipVideo.h264URL.originURLList.count > 0) {
+                    NSURL *imageURL = [NSURL URLWithString:currentImageModel.urlList.firstObject];
+                    NSURL *videoURL = [NSURL URLWithString:currentImageModel.clipVideo.h264URL.originURLList.firstObject];
+                    [DYYYManager downloadLivephoto:imageURL 
+                     videoURL:videoURL 
+                   completion:^(BOOL success) {                        
+			if (success) {
+                            [DYYYManager showToast:@"实况图片已保存"];
+                        }
+		    }];
+                } 
             }
-            [self dismissPanel];
+
+            AWELongPressPanelManager *panelManager = [%c(AWELongPressPanelManager) shareInstance];
+            [panelManager dismissWithAnimation:YES completion:nil];
         };
-        
-        [viewModels addObjectsFromArray:@[livephotoViewModel, imageViewModel]];
-}
         
         [viewModels addObject:livephotoViewModel];
             
@@ -1734,7 +1732,7 @@
                 [viewModels addObject:allImagesViewModel];
             }
         }
-    
+    }
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYCopyText"]) {
         AWELongPressPanelBaseViewModel *copyText = [[%c(AWELongPressPanelBaseViewModel) alloc] init];
@@ -1761,7 +1759,6 @@
 }
 
 %end
-
 %hook AWEElementStackView
 static CGFloat right_tx = 0;
 static CGFloat left_tx = 0;
