@@ -1,6 +1,7 @@
 #import "LivePhotoManager.h"
 #import <ImageIO/ImageIO.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <UIKit/UIKit.h> 
 
 @implementation LivePhotoManager {
     dispatch_group_t _processingGroup;
