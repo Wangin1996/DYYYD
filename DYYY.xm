@@ -10,6 +10,7 @@
 #import "CityManager.h"
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
+#import "LivePhotoManager.h"
 
 %hook AWEAwemePlayVideoViewController
 
