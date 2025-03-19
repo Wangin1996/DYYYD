@@ -1546,7 +1546,7 @@
                     [panelManager dismissWithAnimation:YES completion:nil];
                 };
                 
-                [viewModels addObject:];
+                [viewModels addObject:allImagesViewModel];
             }
         }
     }
@@ -1740,7 +1740,7 @@
                     [panelManager dismissWithAnimation:YES completion:nil];
                 };
                 
-                [viewModels addObject:];
+                [viewModels addObject:allImagesViewModel];
             }
         }
     }
