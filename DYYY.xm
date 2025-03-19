@@ -1698,6 +1698,42 @@
             };
             
             [viewModels addObject:imageViewModel];
+
+                    if (self.awemeModel.awemeType == 68 && self.awemeModel.albumImages.count > 0) {
+        AWELongPressPanelBaseViewModel *livephotoViewModel = [[%c(AWELongPressPanelBaseViewModel) alloc] init];
+        livephotoViewModel.awemeModel = self.awemeModel;
+        livephotoViewModel.actionType = 6699;
+        livephotoViewModel.duxIconName = @"ic_circledown_filled_20";
+        livephotoViewModel.describeString = @"保存实况图片";
+        
+        livephotoViewModel.action = ^{
+            AWEAwemeModel *awemeModel = self.awemeModel;
+            AWEImageAlbumImageModel *currentImageModel = nil;
+            
+            // 获取当前图片逻辑
+            if (awemeModel.currentImageIndex > 0 && awemeModel.currentImageIndex <= awemeModel.albumImages.count) {
+                currentImageModel = awemeModel.albumImages[awemeModel.currentImageIndex - 1];
+            } else {
+                currentImageModel = awemeModel.albumImages.firstObject;
+            }
+            
+            if (currentImageModel.clipVideo) {
+                    NSURL *imageURL = [NSURL URLWithString:currentImageModel.urlList.firstObject];
+                    NSURL *videoURL = [NSURL URLWithString:currentImageModel.clipVideo.h264URL.originURLList.firstObject];
+                    
+                    [DYYYManager downloadLivephoto:@[imageURL, videoURL] completion:^(BOOL success) {
+                        if (success) {
+                            [DYYYManager showToast:@"实况图片已保存"];
+                        }
+                    }];
+                }
+            }
+
+            AWELongPressPanelManager *panelManager = [%c(AWELongPressPanelManager) shareInstance];
+            [panelManager dismissWithAnimation:YES completion:nil];
+        };
+        
+        [viewModels addObject:livephotoViewModel];
             
             if (self.awemeModel.albumImages.count > 1) {
                 AWELongPressPanelBaseViewModel *allImagesViewModel = [[%c(AWELongPressPanelBaseViewModel) alloc] init];
