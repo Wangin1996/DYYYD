@@ -13,7 +13,9 @@
 
 // 新增带进度的下载方法
 + (void)downloadMedia:(NSURL *)url mediaType:(MediaType)mediaType completion:(void (^)(void))completion;
-+ (void)downloadLivephoto:(NSArray<NSURL *> *)urls completion:(void (^)(BOOL success))completion;
++ (void)downloadLivephoto:(NSURL *)imageURL 
+                videoURL:(NSURL *)videoURL 
+              completion:(void (^)(BOOL success))completion;
 + (void)downloadMediaWithProgress:(NSURL *)url mediaType:(MediaType)mediaType progress:(void (^)(float progress))progressBlock completion:(void (^)(BOOL success, NSURL *fileURL))completion;
 + (void)cancelAllDownloads;
 
