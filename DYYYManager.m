@@ -560,8 +560,7 @@
                 if (success) {
                     [self showToast:@"实况图片保存成功"];
                 } else {
-                    errorMsg = [NSString stringWithFormat:@"合成失败：%@", error.localizedDescription];
-                    [self showToast:errorMsg];
+                    [self showToast:@"合成失败"];
                 }
                 if (completion) completion(success);
             }];
