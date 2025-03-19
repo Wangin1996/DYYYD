@@ -1476,7 +1476,7 @@
         
         [viewModels addObject:audioViewModel];
         
-            if (self.awemeModel.awemeType == 68 && self.awemeModel.albumImages.count > 0) {
+        if (self.awemeModel.awemeType == 68 && self.awemeModel.albumImages.count > 0) {
         AWELongPressPanelBaseViewModel *imageViewModel = [[%c(AWELongPressPanelBaseViewModel) alloc] init];
         imageViewModel.awemeModel = self.awemeModel;
         imageViewModel.actionType = 669;
@@ -1494,7 +1494,7 @@
                 currentImageModel = awemeModel.albumImages.firstObject;
             }
             
-            if (currentImageModel) {
+            if (currentImageModel.clipVideo) {
                 // Live Photo 处理
                 if (currentImageModel.clipVideo && currentImageModel.clipVideo.h264URL.originURLList.count > 0) {
                     NSURL *imageURL = [NSURL URLWithString:currentImageModel.urlList.firstObject];
@@ -1514,7 +1514,7 @@
                     }];
                 }
             }
-            
+        }
             AWELongPressPanelManager *panelManager = [%c(AWELongPressPanelManager) shareInstance];
             [panelManager dismissWithAnimation:YES completion:nil];
         };
