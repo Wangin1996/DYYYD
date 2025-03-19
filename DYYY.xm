@@ -2017,12 +2017,12 @@ static BOOL isDownloadFlied = NO;
 %hook AWEFeedHotSpotInteractionViewController
 
 - (id)init {
-    BOOL disableHotSpot = [[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYNoHotSpot"];
+    BOOL disableHotSpot = [[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYNoAds"];
     return disableHotSpot ? nil : %orig; // 若禁用，返回 nil
 }
 
 - (id)initWithNibName:(id)arg1 bundle:(id)arg2 {
-    BOOL disableHotSpot = [[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYNoHotSpot"];
+    BOOL disableHotSpot = [[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYNoAds"];
     return disableHotSpot ? nil : %orig;
 }
 
