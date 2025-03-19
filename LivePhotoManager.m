@@ -56,7 +56,7 @@
     
     // 添加元数据
     NSDictionary *metadata = @{(NSString *)kCGImagePropertyMakerAppleDictionary : @{@"17" : identifier}};
- CGImageDestinationRef destination = CGImageDestinationCreateWithData((CFMutableDataRef)photoData.mutableCopy, UTTypeJPEG, 1, NULL);
+ CGImageDestinationRef destination = CGImageDestinationCreateWithData((CFMutableDataRef)photoData.mutableCopy, UTTypeJPEG.identifier, 1, NULL);
     CGImageDestinationAddImage(destination, [UIImage imageWithData:photoData].CGImage, (CFDictionaryRef)metadata);
     CGImageDestinationFinalize(destination);
     CFRelease(destination);
