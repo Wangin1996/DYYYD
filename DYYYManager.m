@@ -501,6 +501,73 @@
     });
 }
 
++ (void)downloadLivephoto:(NSURL *)imageURL 
+                videoURL:(NSURL *)videoURL 
+              completion:(void (^)(BOOL success))completion {
+    if (!imageURL || !videoURL) {
+        [self showToast:@"需要有效的图片和视频URL"];
+        if (completion) completion(NO);
+        return;
+    }
+    
+    // 创建临时存储路径
+    NSString *tempDir = NSTemporaryDirectory();
+    NSString *photoPath = [tempDir stringByAppendingPathComponent:@"livephoto.jpg"];
+    NSString *videoPath = [tempDir stringByAppendingPathComponent:@"livevideo.mov"];
+    
+    // 分步下载组件
+    [self downloadMediaWithProgress:imageURL 
+                         mediaType:MediaTypeImage 
+                          progress:nil 
+                        completion:^(BOOL success, NSURL *photoURL) {
+        if (!success) {
+            [self showToast:@"图片下载失败"];
+            if (completion) completion(NO);
+            return;
+        }
+        
+        // 移动图片到指定路径
+        [[NSFileManager defaultManager] moveItemAtURL:photoURL 
+                                                toURL:[NSURL fileURLWithPath:photoPath] 
+                                                error:nil];
+        
+        // 下载视频部分
+        [self downloadMediaWithProgress:videoURL 
+                             mediaType:MediaTypeVideo 
+                              progress:nil 
+                            completion:^(BOOL success, NSURL *videoURL) {
+            if (!success) {
+                [self showToast:@"视频下载失败"];
+                [[NSFileManager defaultManager] removeItemAtPath:photoPath error:nil];
+                if (completion) completion(NO);
+                return;
+            }
+            
+            // 移动视频到指定路径
+            [[NSFileManager defaultManager] moveItemAtURL:videoURL 
+                                                    toURL:[NSURL fileURLWithPath:videoPath] 
+                                                    error:nil];
+            
+            // 调用LivePhoto合成
+            [LivePhotoManager createLivePhotoWithPhotoPath:photoPath
+                                                 videoPath:videoPath
+                                                completion:^(BOOL success, NSError *error) {
+                // 清理临时文件
+                [[NSFileManager defaultManager] removeItemAtPath:photoPath error:nil];
+                [[NSFileManager defaultManager] removeItemAtPath:videoPath error:nil];
+                
+                if (success) {
+                    [self showToast:@"实况图片保存成功"];
+                } else {
+                    [self showToast:@"合成失败"];
+                }
+                if (completion) completion(success);
+            }];
+        }];
+    }];
+}
+
+
 + (void)downloadMedia:(NSURL *)url mediaType:(MediaType)mediaType completion:(void (^)(void))completion {
     [self downloadMediaWithProgress:url mediaType:mediaType progress:nil completion:^(BOOL success, NSURL *fileURL) {
         if (success) {
