@@ -560,7 +560,20 @@
                 if (success) {
                     [self showToast:@"实况图片保存成功"];
                 } else {
-                    [self showToast:@"合成失败"];
+                    // 细化错误原因
+                    NSString *errorMsg = @"合成失败";
+                    if (error) {
+                        if ([error.domain isEqualToString:@"PhotoAccess"]) {
+                            errorMsg = @"相册权限未开启";
+                        } else if ([error.domain isEqualToString:@"Processing"]) {
+                            errorMsg = error.code == 500 ? @"媒体文件处理异常" : @"元数据写入失败";
+                        } else if (error.code == -11807) {
+                            errorMsg = @"视频格式不兼容";
+                        } else {
+                            errorMsg = [NSString stringWithFormat:@"%@ (%ld)", error.localizedDescription, error.code];
+                        }
+                    }
+                    [self showToast:errorMsg];
                 }
                 if (completion) completion(success);
             }];
