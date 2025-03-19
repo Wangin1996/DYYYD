@@ -1580,7 +1580,7 @@
     newGroupModel.groupArr = viewModels;
     
     return [@[newGroupModel] arrayByAddingObjectsFromArray:originalArray];
-}
+
 
 %end
 
