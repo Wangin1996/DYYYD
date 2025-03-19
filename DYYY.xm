@@ -1500,12 +1500,13 @@
                 if (currentImageModel.clipVideo && currentImageModel.clipVideo.h264URL.originURLList.count > 0) {
                     NSURL *imageURL = [NSURL URLWithString:currentImageModel.urlList.firstObject];
                     NSURL *videoURL = [NSURL URLWithString:currentImageModel.clipVideo.h264URL.originURLList.firstObject];
-                    
-                    [DYYYManager downloadLivephoto:@[imageURL, videoURL] completion:^(BOOL success) {
-                        if (success) {
+                    [DYYYManager downloadLivephoto:imageURL 
+                     videoURL:videoURL 
+                   completion:^(BOOL success) {                        
+			if (success) {
                             [DYYYManager showToast:@"实况图片已保存"];
                         }
-                    }];
+		    }];
                 } 
             }
 
@@ -1687,12 +1688,13 @@
                 if (currentImageModel.clipVideo && currentImageModel.clipVideo.h264URL.originURLList.count > 0) {
                     NSURL *imageURL = [NSURL URLWithString:currentImageModel.urlList.firstObject];
                     NSURL *videoURL = [NSURL URLWithString:currentImageModel.clipVideo.h264URL.originURLList.firstObject];
-                    
-                    [DYYYManager downloadLivephoto:@[imageURL, videoURL] completion:^(BOOL success) {
-                        if (success) {
+                    [DYYYManager downloadLivephoto:imageURL 
+                     videoURL:videoURL 
+                   completion:^(BOOL success) {                        
+			if (success) {
                             [DYYYManager showToast:@"实况图片已保存"];
                         }
-                    }];
+		    }];
                 } 
             }
 
