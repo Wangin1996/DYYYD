@@ -513,8 +513,8 @@
     
     // 创建临时存储路径
     NSString *tempDir = NSTemporaryDirectory();
-    NSString *photoPath = [tempDir stringByAppendingPathComponent:@"livephoto.heic"];
-    NSString *videoPath = [tempDir stringByAppendingPathComponent:@"livevideo.mov"];
+    NSString *photoPath = [tempDir stringByAppendingPathComponent:@"output.heic"];
+    NSString *videoPath = [tempDir stringByAppendingPathComponent:@"output.mp4"];
     
     // 分步下载组件
     [self downloadMediaWithProgress:imageURL 
