@@ -514,7 +514,7 @@
     // 创建临时存储路径
     NSString *tempDir = NSTemporaryDirectory();
     NSString *photoPath = [tempDir stringByAppendingPathComponent:@"livephoto.jpg"];
-    NSString *videoPath = [tempDir stringByAppendingPathComponent:@"livevideo.mov"];
+    NSString *videoPath = [tempDir stringByAppendingPathComponent:@"livevideo.mp4"];
     
     // 分步下载组件
     [self downloadMediaWithProgress:imageURL 
