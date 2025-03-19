@@ -518,7 +518,7 @@
     
     // 分步下载组件
     [self downloadMediaWithProgress:imageURL 
-                         mediaType:MediaTypeImage 
+                         mediaType:MediaTypeHeic 
                           progress:nil 
                         completion:^(BOOL success, NSURL *photoURL) {
         if (!success) {
