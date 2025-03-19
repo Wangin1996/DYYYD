@@ -1514,7 +1514,7 @@
                     }];
                 }
             }
-        }
+
             AWELongPressPanelManager *panelManager = [%c(AWELongPressPanelManager) shareInstance];
             [panelManager dismissWithAnimation:YES completion:nil];
         };
