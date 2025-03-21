@@ -11,6 +11,16 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
+//去除开屏广告
+%hook BDASplashControllerView
+
++ (id)alloc {
+    return nil; // 直接返回空指针，阻止内存分配
+}
+
+
+%end
+
 %hook AWEAwemePlayVideoViewController
 
 - (void)setIsAutoPlay:(BOOL)arg0 {
