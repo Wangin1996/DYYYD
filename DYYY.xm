@@ -11,6 +11,16 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
+%hook AWEBaseElementView
+- (void)setHidden:(BOOL)hidden {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hideauthorstatement"]) {
+        hidden = YES;
+    }
+
+    %orig(hidden);
+}
+%end
+
 //去除开屏广告
 %hook BDASplashControllerView
 
