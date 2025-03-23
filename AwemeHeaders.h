@@ -10,6 +10,9 @@ typedef NS_ENUM(NSInteger, MediaType) {
     MediaTypeHeic
 };
 
+@interface AWEAntiAddictedNoticeBarView : UIView
+@end
+
 @interface URLModel : NSObject
 @property (nonatomic, strong) NSArray *originURLList;
 @end
