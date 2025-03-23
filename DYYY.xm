@@ -11,6 +11,24 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
+%hook AFDRecommendToFriendEntranceLabel
+
+- (BOOL)isHidden {
+    BOOL origHidden = %orig; 
+    
+    BOOL hideRecommend = [[NSUserDefaults standardUserDefaults] boolForKey:@"HideClicktorecommend"];
+    
+    return origHidden || hideRecommend;
+}
+
+- (void)setHidden:(BOOL)hidden {
+    BOOL forceHide = [[NSUserDefaults standardUserDefaults] boolForKey:@"HideClicktorecommend"];
+    %orig(forceHide ? YES : hidden); 
+}
+
+%end
+
+//隐藏作者声明
 %hook AWEPlayInteractionViewController
 
 - (void)updateAntiAddictedOptStrongReminderView:(BOOL)show {
