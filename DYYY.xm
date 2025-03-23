@@ -11,7 +11,7 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
-%hook AWEBaseElementView
+%hook AWEAntiAddictedNoticeBarView
 - (void)setHidden:(BOOL)hidden {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hideauthorstatement"]) {
         hidden = YES;
@@ -338,10 +338,17 @@
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYisHiddenEntry"]) {
         self.hidden = YES;
+	
     }
 
     %orig(center);
 }
+
+- (void)setHidden:(BOOL)hidden {
+    BOOL shouldHide = [[NSUserDefaults standardUserDefaults] boolForKey:@"DYYYisHiddenEntry"];
+    %orig(shouldHide); 
+}
+
 %end
 
 %hook AWEAwemeModel
