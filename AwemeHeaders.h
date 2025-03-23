@@ -10,10 +10,6 @@ typedef NS_ENUM(NSInteger, MediaType) {
     MediaTypeHeic
 };
 
-@interface AWEBaseElementView : UIView
-@end
-
-
 @interface URLModel : NSObject
 @property (nonatomic, strong) NSArray *originURLList;
 @end
