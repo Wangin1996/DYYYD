@@ -11,14 +11,13 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
-%hook AWEAntiAddictedNoticeBarView
-- (void)setHidden:(BOOL)hidden {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hideauthorstatement"]) {
-        hidden = YES;
-    }
+%hook AWEPlayInteractionViewController
 
-    %orig(hidden);
+- (void)updateAntiAddictedOptStrongReminderView:(BOOL)show {
+    BOOL disableAntiAddict = [[NSUserDefaults standardUserDefaults] boolForKey:@"DisableAntiAddict"];
+    %orig(disableAntiAddict ? NO : show); 
 }
+
 %end
 
 //去除开屏广告
