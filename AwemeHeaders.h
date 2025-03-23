@@ -10,6 +10,9 @@ typedef NS_ENUM(NSInteger, MediaType) {
     MediaTypeHeic
 };
 
+@interface AFDRecommendToFriendEntranceLabel : UILabel
+@end
+
 @interface AWEAntiAddictedNoticeBarView : UIView
 @end
 
