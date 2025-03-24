@@ -12,7 +12,7 @@
 #import "DYYYManager.h"
 
 //隐藏共创
-%hook AWEIMMessageTabOptPushBannerView
+%hook AWEPlayInteractionCoCreatorNewInfoView
 
 - (void)layoutSubviews {
     %orig;
