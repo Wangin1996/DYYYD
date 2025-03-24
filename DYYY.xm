@@ -36,7 +36,7 @@
 - (void)layoutSubviews {
     %orig;
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hidecreatetogether"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HideClicktorecommend"]) {
         UIView *parentView = self.superview;
         if (parentView) {
             parentView.hidden = YES;
