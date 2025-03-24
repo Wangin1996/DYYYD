@@ -64,6 +64,8 @@
     }
 }
 
+%end
+
 //去除开屏广告
 %hook BDASplashControllerView
 
