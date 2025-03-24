@@ -10,6 +10,9 @@ typedef NS_ENUM(NSInteger, MediaType) {
     MediaTypeHeic
 };
 
+@interface ACCMordernQuickFlashStickerView : UIView
+@end
+
 @interface AWEPlayInteractionStrongifyShareContentView : UIView
 @end
 
