@@ -50,26 +50,21 @@
 //隐藏作者声明
 %hook AWEAntiAddictedNoticeBarView
 
-- (BOOL)isHidden {
-    BOOL origHidden = %orig; 
-    
-    BOOL disableAntiAddict = [[NSUserDefaults standardUserDefaults] boolForKey:@"disableAntiAddict"];
-    
-    return origHidden || disableAntiAddict;
+- (instancetype)initWithFrame:(CGRect)frame {
+    id orig = %orig; 
+    if (orig) {
+        [(UIView *)orig setValue:@YES forKey:@"hidden"];
+    }
+    return orig;
 }
 
 - (void)setHidden:(BOOL)hidden {
-    BOOL forceHide = [[NSUserDefaults standardUserDefaults] boolForKey:@"disableAntiAddict"];
-    %orig(forceHide ? YES : hidden); 
+    %orig(YES); // 无论传入何值，强制设为 YES
 }
 
-%end
-
-%hook AWEPlayInteractionViewController
-
-- (void)updateAntiAddictedOptStrongReminderView:(BOOL)show {
-    BOOL disableAntiAddict = [[NSUserDefaults standardUserDefaults] boolForKey:@"DisableAntiAddict"];
-    %orig(disableAntiAddict ? NO : show); 
+- (void)didMoveToWindow {
+    %orig;
+    self.hidden = YES;
 }
 
 %end
