@@ -12,23 +12,6 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
-//隐藏关注页下拉显示直播
-%hook AWESkylightCellEntranceView
-
-- (void)layoutSubviews {
-    %orig;
-
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HideSkylight"]) {
-        UIView *parentView = self.superview;
-        if (parentView) {
-            parentView.hidden = YES;
-        } else {
-            self.hidden = YES;
-        }
-    }
-}
-
-%end
 
 //隐藏他的店铺
 %hook AWEECommerceEntryView
