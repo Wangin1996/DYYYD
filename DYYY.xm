@@ -12,16 +12,6 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
-//隐藏分享给xxx
-%hook AWEPlayInteractionStrongifyShareContentView
-
-- (void)layoutSubviews {
-    %orig;
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, 0, 0);
-}
-
-
-%end
 
 //隐藏共创
 %hook AWEPlayInteractionCoCreatorNewInfoView
