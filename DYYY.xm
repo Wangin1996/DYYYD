@@ -28,6 +28,8 @@
     }
 }
 
+%end
+
 //隐藏共创
 %hook AWEPlayInteractionCoCreatorNewInfoView
 
