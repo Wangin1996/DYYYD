@@ -15,11 +15,17 @@
 //隐藏挑战贴纸
 %hook ACCStickerContainerView
 
-// 初始化时完全禁用
-- (instancetype)initWithFrame:(CGRect)frame {
-    self.hidden = YES;
-    self.userInteractionEnabled = NO; 
-    return self;
+- (void)layoutSubviews {
+    %orig;
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hidechallengestickers"]) {
+        UIView *parentView = self.superview;
+        if (parentView) {
+            parentView.hidden = YES;
+        } else {
+            self.hidden = YES;
+        }
+    }
 }
 
 %end
