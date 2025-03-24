@@ -13,7 +13,7 @@
 #import "DYYYManager.h"
 
 //隐藏挑战贴纸
-%hook AWEFeedStickerContainerView
+%hook ACCGestureResponsibleStickerView
 
 - (void)layoutSubviews {
     %orig;
