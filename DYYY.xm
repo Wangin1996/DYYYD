@@ -11,6 +11,25 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
+//隐藏拍同款
+%hook AWEFeedAnchorContainerView
+
+- (BOOL)isHidden {
+    BOOL origHidden = %orig; 
+    
+    BOOL hideRecommend = [[NSUserDefaults standardUserDefaults] boolForKey:@"HideSamestyle"];
+    
+    return origHidden || hideRecommend;
+}
+
+- (void)setHidden:(BOOL)hidden {
+    BOOL forceHide = [[NSUserDefaults standardUserDefaults] boolForKey:@"HideSamestyle"];
+    %orig(forceHide ? YES : hidden); 
+}
+
+%end
+
+//隐藏点击分享
 %hook AFDRecommendToFriendEntranceLabel
 
 - (BOOL)isHidden {
