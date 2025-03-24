@@ -10,6 +10,8 @@ typedef NS_ENUM(NSInteger, MediaType) {
     MediaTypeHeic
 };
 
+@interface AWEECommerceEntryView : UIView
+@end
 
 @interface AWEFeedStickerContainerView : UIView
 @end
