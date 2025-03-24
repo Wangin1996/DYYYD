@@ -13,11 +13,19 @@
 #import "DYYYManager.h"
 
 //隐藏关注页下拉显示直播
-%hook AWENewLiveSkylightViewController
+%hook AWESkylightCellEntranceView
 
-- (void)viewDidLoad {
-    %orig; 
-    self.skylightTabbarView.hidden = YES; 
+- (void)layoutSubviews {
+    %orig;
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HideSkylight"]) {
+        UIView *parentView = self.superview;
+        if (parentView) {
+            parentView.hidden = YES;
+        } else {
+            self.hidden = YES;
+        }
+    }
 }
 
 %end
