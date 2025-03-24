@@ -17,9 +17,9 @@
 - (BOOL)isHidden {
     BOOL origHidden = %orig; 
     
-    BOOL hideRecommend = [[NSUserDefaults standardUserDefaults] boolForKey:@"HideSamestyle"];
+    BOOL hideSamestyle = [[NSUserDefaults standardUserDefaults] boolForKey:@"HideSamestyle"];
     
-    return origHidden || hideRecommend;
+    return origHidden || hideSamestyle;
 }
 
 - (void)setHidden:(BOOL)hidden {
@@ -48,12 +48,21 @@
 %end
 
 //隐藏作者声明
-%hook AWEPlayInteractionViewController
+%hook AWEAntiAddictedNoticeBarView
 
-- (void)updateAntiAddictedOptStrongReminderView:(BOOL)show {
-    BOOL disableAntiAddict = [[NSUserDefaults standardUserDefaults] boolForKey:@"DisableAntiAddict"];
-    %orig(disableAntiAddict ? NO : show); 
+- (BOOL)isHidden {
+    BOOL origHidden = %orig; 
+    
+    BOOL disableAntiAddict = [[NSUserDefaults standardUserDefaults] boolForKey:@"disableAntiAddict"];
+    
+    return origHidden || disableAntiAddict;
 }
+
+- (void)setHidden:(BOOL)hidden {
+    BOOL forceHide = [[NSUserDefaults standardUserDefaults] boolForKey:@"disableAntiAddict"];
+    %orig(forceHide ? YES : hidden); 
+}
+
 
 %end
 
