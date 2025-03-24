@@ -11,6 +11,24 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
+//隐藏共创
+%hook AWEPlayInteractionCoCreatorNewInfoView
+
+- (void)layoutSubviews {
+    %orig;
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hidecreatetogether"]) {
+        UIView *parentView = self.superview;
+        if (parentView) {
+            parentView.hidden = YES;
+        } else {
+            self.hidden = YES;
+        }
+    }
+}
+
+%end
+
 //隐藏拍同款
 %hook AWEFeedAnchorContainerView
 
@@ -54,7 +72,6 @@
     %orig;
 
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hideauthorstatement"]) {
-        // 找到父视图并隐藏
         UIView *parentView = self.superview;
         if (parentView) {
             parentView.hidden = YES;
