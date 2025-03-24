@@ -15,14 +15,12 @@
 //隐藏挑战贴纸
 %hook ACCStickerContainerView
 
-- (void)setHidden:(BOOL)hidden {
-    %orig(YES); 
-}
-
-- (void)layoutSubviews {
-    %orig;
+// 初始化时完全禁用
+- (instancetype)initWithFrame:(CGRect)frame {
+    id self = %orig;
     self.hidden = YES;
-    self.alpha = 0;
+    self.userInteractionEnabled = NO; // 关闭交互
+    return self;
 }
 
 %end
