@@ -12,6 +12,16 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
+//隐藏关注页下拉显示直播
+%hook AWENewLiveSkylightViewController
+
+- (void)viewDidLoad {
+    %orig; 
+    self.skylightTabbarView.hidden = YES; 
+}
+
+%end
+
 //隐藏他的店铺
 %hook AWEECommerceEntryView
 
