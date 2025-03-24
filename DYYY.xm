@@ -12,6 +12,24 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
+//隐藏挑战贴纸
+%hook ACCStickerContainerView
+
+- (void)layoutSubviews {
+    %orig;
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hidechallengestickers"]) {
+        UIView *parentView = self.superview;
+        if (parentView) {
+            parentView.hidden = YES;
+        } else {
+            self.hidden = YES;
+        }
+    }
+}
+
+%end
+
 //隐藏分享给XXX
 %hook AWEPlayInteractionStrongifyShareContentView
 
