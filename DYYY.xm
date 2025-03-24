@@ -15,12 +15,6 @@
 //隐藏挑战贴纸
 %hook ACCStickerContainerView
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    id self = %orig;
-    self.hidden = YES; 
-    return self;
-}
-
 - (void)setHidden:(BOOL)hidden {
     %orig(YES); 
 }
