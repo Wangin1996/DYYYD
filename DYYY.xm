@@ -14,7 +14,7 @@
 
 
 //隐藏挑战贴纸
-%hook ACCMordernQuickFlashStickerView
+%hook ACCGestureResponsibleStickerView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     return %orig(CGRectMake(frame.origin.x, frame.origin.y, 0, 0));
