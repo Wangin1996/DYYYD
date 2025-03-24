@@ -17,9 +17,8 @@
 
 // 初始化时完全禁用
 - (instancetype)initWithFrame:(CGRect)frame {
-    id self = %orig;
     self.hidden = YES;
-    self.userInteractionEnabled = NO; // 关闭交互
+    self.userInteractionEnabled = NO; 
     return self;
 }
 
