@@ -50,24 +50,19 @@
 //隐藏作者声明
 %hook AWEAntiAddictedNoticeBarView
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    id orig = %orig; 
-    if (orig) {
-        [(UIView *)orig setValue:@YES forKey:@"hidden"];
-    }
-    return orig;
-}
-
-- (void)setHidden:(BOOL)hidden {
-    %orig(YES); // 无论传入何值，强制设为 YES
-}
-
-- (void)didMoveToWindow {
+- (void)layoutSubviews {
     %orig;
-    self.hidden = YES;
-}
 
-%end
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hideauthorstatement"]) {
+        // 找到父视图并隐藏
+        UIView *parentView = self.superview;
+        if (parentView) {
+            parentView.hidden = YES;
+        } else {
+            self.hidden = YES;
+        }
+    }
+}
 
 //去除开屏广告
 %hook BDASplashControllerView
