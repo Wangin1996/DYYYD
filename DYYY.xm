@@ -20,7 +20,6 @@
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, 0, 0);
 }
 
-}
 
 %end
 
