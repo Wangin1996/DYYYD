@@ -11,22 +11,23 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
-//隐藏热点商城测试
-%hook AWEFeedVideoListDataController  // Hook 视频数据控制器
+//隐藏分享给xxx
+%hook AWEPlayInteractionStrongifyShareContentView
 
-// 拦截数据加载方法
-- (void)loadDataWithCompletion:(void (^)(NSArray *))completion {
-    %orig;  // 1. 先调用原始方法加载数据
-    
-    // 2. 过滤逻辑
-    NSMutableArray *filteredList = [NSMutableArray array];
-    for (AWEAwemeModel *model in self.dataList) {
-        if (model.hotSpotLynxCardModel) {  // 检查热点卡片是否存在
-            [filteredList addObject:model]; // 保留有效数据
-        }
-    }
-    self.dataList = filteredList;  // 3. 更新数据列表
+- (instancetype)initWithFrame:(CGRect)frame {
+    return %orig(CGRectMake(frame.origin.x, frame.origin.y, 0, 0));
 }
+
+- (void)layoutSubviews {
+    %orig;
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, 0, 0);
+}
+
+- (CGRect)frame {
+    CGRect orig = %orig;
+    return CGRectMake(orig.origin.x, orig.origin.y, 0, 0);
+}
+
 %end
 
 //隐藏消息提醒提示
