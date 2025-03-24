@@ -12,20 +12,21 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
+
 //隐藏挑战贴纸
-%hook ACCGestureResponsibleStickerView
+%hook AWEFeedStickerContainerView
 
-- (void)layoutSubviews {
-    %orig;
+- (BOOL)isHidden {
+    BOOL origHidden = %orig; 
+    
+    BOOL hideRecommend = [[NSUserDefaults standardUserDefaults] boolForKey:@"Hidechallengestickers"];
+    
+    return origHidden || hideRecommend;
+}
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hidechallengestickers"]) {
-        UIView *parentView = self.superview;
-        if (parentView) {
-            parentView.hidden = YES;
-        } else {
-            self.hidden = YES;
-        }
-    }
+- (void)setHidden:(BOOL)hidden {
+    BOOL forceHide = [[NSUserDefaults standardUserDefaults] boolForKey:@"Hidechallengestickers"];
+    %orig(forceHide ? YES : hidden); 
 }
 
 %end
