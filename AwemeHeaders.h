@@ -10,6 +10,9 @@ typedef NS_ENUM(NSInteger, MediaType) {
     MediaTypeHeic
 };
 
+@interface UICollectionView : UIView
+@end
+
 @interface AWESkylightCellEntranceView : UIView
 @end
 
