@@ -10,7 +10,7 @@ typedef NS_ENUM(NSInteger, MediaType) {
     MediaTypeHeic
 };
 
-@interface ACCStickerContainerView : UIView
+@interface AWEFeedStickerContainerView : UIView
 @end
 
 @interface ACCGestureResponsibleStickerView : UIView
