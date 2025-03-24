@@ -63,6 +63,14 @@
     %orig(forceHide ? YES : hidden); 
 }
 
+%end
+
+%hook AWEPlayInteractionViewController
+
+- (void)updateAntiAddictedOptStrongReminderView:(BOOL)show {
+    BOOL disableAntiAddict = [[NSUserDefaults standardUserDefaults] boolForKey:@"DisableAntiAddict"];
+    %orig(disableAntiAddict ? NO : show); 
+}
 
 %end
 
