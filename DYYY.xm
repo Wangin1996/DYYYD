@@ -15,18 +15,11 @@
 //隐藏分享给xxx
 %hook AWEPlayInteractionStrongifyShareContentView
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    return %orig(CGRectMake(frame.origin.x, frame.origin.y, 0, 0));
-}
-
 - (void)layoutSubviews {
     %orig;
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, 0, 0);
 }
 
-- (CGRect)frame {
-    CGRect orig = %orig;
-    return CGRectMake(orig.origin.x, orig.origin.y, 0, 0);
 }
 
 %end
