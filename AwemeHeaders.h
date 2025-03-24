@@ -10,6 +10,9 @@ typedef NS_ENUM(NSInteger, MediaType) {
     MediaTypeHeic
 };
 
+@interface AWEPlayInteractionCoCreatorNewInfoView : UIView
+@end
+
 @interface AWEIMMessageTabOptPushBannerView : UIView
 @end
 
