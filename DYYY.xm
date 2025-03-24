@@ -12,6 +12,21 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
+//隐藏分享给XXX
+%hook AWEPlayInteractionStrongifyShareContentView
+
+- (void)layoutSubviews {
+    %orig;
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hidecreatetogether"]) {
+        UIView *parentView = self.superview;
+        if (parentView) {
+            parentView.hidden = YES;
+        } else {
+            self.hidden = YES;
+        }
+    }
+}
 
 //隐藏共创
 %hook AWEPlayInteractionCoCreatorNewInfoView
