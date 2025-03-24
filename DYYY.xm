@@ -12,6 +12,23 @@
 #import "AwemeHeaders.h"
 #import "DYYYManager.h"
 
+//隐藏他的店铺
+%hook AWEECommerceEntryView
+
+- (void)layoutSubviews {
+    %orig;
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hidehisshop"]) {
+        UIView *parentView = self.superview;
+        if (parentView) {
+            parentView.hidden = YES;
+        } else {
+            self.hidden = YES;
+        }
+    }
+}
+
+%end
 
 //隐藏挑战贴纸
 %hook AWEFeedStickerContainerView
