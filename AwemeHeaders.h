@@ -9,6 +9,9 @@ typedef NS_ENUM(NSInteger, MediaType) {
     MediaTypeAudio,
     MediaTypeHeic
 };
+@interface AWENewLiveSkylightViewController : UIViewController
+@property (nonatomic, strong) UIView *skylightTabbarView;
+@end
 
 @interface AWEECommerceEntryView : UIView
 @end
