@@ -12,40 +12,21 @@
 #import "DYYYManager.h"
 
 //隐藏热点商城测试
-%hook AWEFeedVideoListDataController
+%hook AWEFeedVideoListDataController  // Hook 视频数据控制器
 
+// 拦截数据加载方法
 - (void)loadDataWithCompletion:(void (^)(NSArray *))completion {
-    %orig; // 原始数据加载
+    %orig;  // 1. 先调用原始方法加载数据
     
+    // 2. 过滤逻辑
     NSMutableArray *filteredList = [NSMutableArray array];
     for (AWEAwemeModel *model in self.dataList) {
-        // 反向过滤：仅保留包含 hotSpotLynxCardModel 的视频
-        if (model.hotSpotLynxCardModel != nil) { 
-            [filteredList addObject:model];
+        if (model.hotSpotLynxCardModel) {  // 检查热点卡片是否存在
+            [filteredList addObject:model]; // 保留有效数据
         }
     }
-    
-    // 主线程安全操作（应对图片中调试工具的多线程场景）
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.dataList = [filteredList copy]; // 转为不可变数组
-    });
+    self.dataList = filteredList;  // 3. 更新数据列表
 }
-
-%end
-
-// 拦截视频数据加载方法
-- (void)loadDataWithCompletion:(void (^)(NSArray *))completion {
-    %orig;
-    // 过滤包含 hotSpotLynxCardModel 的视频
-    NSMutableArray *filteredList = [NSMutableArray array];
-    for (AWEAwemeModel *model in self.dataList) {
-        if (!model.hotSpotLynxCardModel) { // 若需反向过滤（仅保留无热点的），修改为 == nil
-            [filteredList addObject:model];
-        }
-    }
-    self.dataList = filteredList;
-}
-
 %end
 
 //隐藏消息提醒提示
