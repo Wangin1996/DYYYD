@@ -11,7 +11,7 @@ typedef NS_ENUM(NSInteger, MediaType) {
 };
 
 
-@interface ACCGestureResponsibleStickerView : UIView
+@interface AWEFeedStickerContainerView : UIView
 @end
 
 @interface AWEPlayInteractionStrongifyShareContentView : UIView
