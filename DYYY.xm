@@ -5,6 +5,7 @@
 //  Channel: @huamidev
 //  Created on: 2024/10/04
 //
+
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 #import "CityManager.h"
@@ -26,16 +27,6 @@
 - (CGRect)frame {
     CGRect orig = %orig;
     return CGRectMake(orig.origin.x, orig.origin.y, 0, 0);
-}
-
-%end
-
-//隐藏消息提醒权限提示
-%hook AWEIMMessageTabOptPushBannerView
-
-- (void)layoutSubviews {
-    %orig;
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, 0, 0);
 }
 
 %end
